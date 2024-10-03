@@ -11,9 +11,13 @@ def load(lang, nlp=None):
     supported = {"de", "en"}
     if lang not in supported:
         raise Exception(f"{lang} is an unsupported or unknown language")
+    elif lang == "en":
+        spacy_small = "en_core_web_sm"
+    elif lang == "de":
+        spacy_small = "de_core_news_sm"
 
     # Load spacy (small model if no model supplied)
-    nlp = nlp or spacy.load(f"{lang}_core_web_sm", disable=["ner"])
+    nlp = nlp or spacy.load(spacy_small, disable=["ner"])
 
     # Load language edit merger
     if lang != "en":
