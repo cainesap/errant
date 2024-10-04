@@ -13,20 +13,24 @@ def load(lang, nlp=None):
         raise Exception(f"{lang} is an unsupported or unknown language")
     elif lang == "en":
         spacy_small = "en_core_web_sm"
+        print(f"Ok, using the spaCy model {spacy_small} for {lang}")
     elif lang == "de":
         spacy_small = "de_core_news_sm"
+        print(f"Ok, using the spaCy model {spacy_small} for {lang}")
 
     # Load spacy (small model if no model supplied)
     nlp = nlp or spacy.load(spacy_small, disable=["ner"])
 
-    # Load language edit merger
-    if lang != "en":
-        print(f"WARNING: Loading English merger and classifier for language {lang}")
-    merger = import_module(f"errant.en.merger")
-
-    # Load language edit classifier
-    classifier = import_module(f"errant.en.classifier")
-    # The English classifier needs spacy
+    # Load language edit merger and edit classifier
+    if lang == "en":
+        #print(f"WARNING: Loading English merger and classifier for language {lang}")
+        merger = import_module(f"errant.en.merger")
+        classifier = import_module(f"errant.en.classifier")
+    elif lang == "de":
+        merger = import_module(f"errant.de.merger")
+        classifier = import_module(f"errant.de.classifier")
+    
+    # The classifier needs spacy
     classifier.nlp = nlp
 
     # Return a configured ERRANT annotator
