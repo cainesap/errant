@@ -13,13 +13,15 @@ def load(lang, nlp=None):
         raise Exception(f"{lang} is an unsupported or unknown language")
     elif lang == "en":
         spacy_small = "en_core_web_sm"
-        print(f"Ok, using the spaCy model {spacy_small} for {lang}")
     elif lang == "de":
         spacy_small = "de_core_news_sm"
-        print(f"Ok, using the spaCy model {spacy_small} for {lang}")
 
     # Load spacy (small model if no model supplied)
-    nlp = nlp or spacy.load(spacy_small, disable=["ner"])
+    if nlp:
+        nlp = nlp
+    else:
+        print(f"Ok, using the spaCy model {spacy_small} for {lang}")
+        spacy.load(spacy_small, disable=["ner"])
 
     # Load language edit merger and edit classifier
     if lang == "en":
