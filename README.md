@@ -20,6 +20,7 @@ This involves:
 
 (iv) 
 
+_Note to self_: remember to `pip uninstall errant`, `git pull` the new contents of this repo, and `pip install -e .` to re-install with updates (in the spacy3 conda env).
 
 ## Overview
 
