@@ -18,7 +18,7 @@ This involves:
 
 (iii) copying the `en/classifier.py` script to the new subdirectory and changing the filepaths for the wordlist (`load_word_list()`) and part-of-speech tag mapping file (`load_pos_map()`) -- see next point -- also specifying `encoding='utf-8'` in `open()` to deal with Unicode characters, 
 
-(iv) 
+(iv) copying the `ud-pos-tags` Universal Dependencies part-of-speech tagset file and `en_GB-large.txt` wordlist (e.g. see the 'cs' Czech directory) -- the tagset mapping file and wordlist are required by ERRANT; the fact it is an English wordlist for other languages is not ideal but will do for now (it is used for error typing (specifically spelling errors) -- which we're not using ERRANT for this time).
 
 _Note to self_: remember to `pip uninstall errant`, `git pull` the new contents of this repo, and `pip install -e .` to re-install with updates (in the spacy3 conda env).
 
