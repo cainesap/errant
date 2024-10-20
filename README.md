@@ -1,5 +1,28 @@
 # ERRANT v3.0.0
 
+## Development note for the MultiGEC-2025 shared task
+
+For the [Shared task on Multilingual Grammatical Error Correction](https://github.com/spraakbanken/multigec-2025) (MultiGEC-2025) we needed to add support for all 12 of the languages involved. Since there was not time to do this properly for so many languages (see [section below]([https://github.com/cainesap/errant/edit/main/README.md#](https://github.com/cainesap/errant?tab=readme-ov-file#development-for-other-languages)) on the full requirements for development for other languages), we have made some minimal changes so that:
+
+(a) the 12 languages are listed in `errant/__init__.py`,
+
+(b) we have downloaded the relevant [spacy-udpipe](https://spacy.io/universe/project/spacy-udpipe) models, 
+
+(c) there is an appropriate subdirectory structure for each language within the `errant/` directory.
+
+This involves:
+
+(i) creating a subdirectory with the appropriate 2-letter language code (e.g. 'cs' for Czech, 'de' for German, etc),
+
+(ii) copying the `en/__init.py` file and `en/merger.py` script to the new language subdirectory, 
+
+(iii) copying the `en/classifier.py` script to the new subdirectory and changing the filepaths for the wordlist (`load_word_list()`) and part-of-speech tag mapping file (`load_pos_map()`) -- see next point -- also specifying `encoding='utf-8'` in `open()` to deal with Unicode characters, 
+
+(iv) 
+
+
+## Overview
+
 This repository contains the grammatical ERRor ANnotation Toolkit (ERRANT) described in:
 
 > Christopher Bryant, Mariano Felice, and Ted Briscoe. 2017. [**Automatic annotation and evaluation of error types for grammatical error correction**](https://www.aclweb.org/anthology/P17-1074/). In Proceedings of the 55th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers). Vancouver, Canada.
