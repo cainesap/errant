@@ -10,6 +10,8 @@ For the [Shared task on Multilingual Grammatical Error Correction](https://githu
 
 (c) there is an appropriate subdirectory structure for each language within the `errant/` directory.
 
+(d) also add the language to the possible options for the 'lang' argvar in `parallel_to_m2.py`
+
 This involves:
 
 (i) creating a subdirectory with the appropriate 2-letter language code (e.g. 'cs' for Czech, 'de' for German, etc),
