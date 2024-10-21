@@ -69,6 +69,7 @@ dep_map = {
 # Input: An Edit object
 # Output: The same Edit object with an updated error type
 def classify(edit):
+    print(edit.o_str)
     # Nothing to nothing is a detected but not corrected edit
     if not edit.o_toks and not edit.c_toks:
         edit.type = "UNK"
@@ -116,6 +117,7 @@ def get_edit_info(toks):
     pos = []
     dep = []
     for tok in toks:
+        print(tok)
         if len(tok.tag_)>0:  # AC 2024-10-21: new if statement to account for empty pos-tags with UDPipe
             pos.append(pos_map[tok.tag_])
             dep.append(tok.dep_)
