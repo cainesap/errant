@@ -68,8 +68,9 @@ def parse_args():
         "-lang", 
         help="The language you are working with, loads the appropriate spacy model.\n"
             "en: English (default)\n"
+            "cs: Czech\n",
             "de: German",
-        choices=["en", "de"],
+        choices=["en", "cs", "de"],
         default="en")
     parser.add_argument(
         "-tok", 
