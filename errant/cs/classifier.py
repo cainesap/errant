@@ -69,7 +69,6 @@ dep_map = {
 # Input: An Edit object
 # Output: The same Edit object with an updated error type
 def classify(edit):
-    print(edit.o_str)
     # Nothing to nothing is a detected but not corrected edit
     if not edit.o_toks and not edit.c_toks:
         edit.type = "UNK"
