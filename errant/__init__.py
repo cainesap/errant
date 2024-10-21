@@ -29,8 +29,8 @@ def load(lang, nlp=None):
     # Load language edit merger and edit classifier
     if lang == "cs":
         #print(f"WARNING: Loading English merger and classifier for language {lang}")
-        merger = import_module(f"errant.en.merger")
-        classifier = import_module(f"errant.en.classifier")
+        merger = import_module(f"errant.cs.merger")
+        classifier = import_module(f"errant.cs.classifier")
     elif lang == "de":
         merger = import_module(f"errant.de.merger")
         classifier = import_module(f"errant.de.classifier")
