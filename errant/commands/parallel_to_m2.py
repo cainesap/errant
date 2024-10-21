@@ -36,7 +36,6 @@ def main():
                     # Parse cor with spacy
                     cor = annotator.parse(cor, args.tok)
                     # Align the texts and extract and classify the edits
-                    print(orig)
                     edits = annotator.annotate(orig, cor, args.lev, args.merge)
                     # Loop through the edits
                     for edit in edits:
