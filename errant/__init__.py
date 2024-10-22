@@ -9,7 +9,7 @@ __version__ = '3.0.0'
 def load(lang, nlp=None):
     # Make sure the language is supported
     # for the purpose of the MultiGEC-2025 shared task this means: 'we have already downloaded the udpipe models'
-    supported = {"cs", "de", "en"}
+    supported = {"cs", "de", "el", "en", "et", "is", "it", "lv", "ru", "sl", "sv", "uk"}
     if lang not in supported:
         raise Exception(f"{lang} is an unsupported or unknown language")
     #elif lang == "en":  # this is with standard spacy
