@@ -25,18 +25,11 @@ def load(lang, nlp=None):
         #spacy.load(spacy_small, disable=["ner"])
         print(f"Ok, using the UDPipe model in {lang} for spacy-udpipe")
         nlp = spacy_udpipe.load(lang)
-
+    
     # Load language edit merger and edit classifier
-    if lang == "cs":
-        #print(f"WARNING: Loading English merger and classifier for language {lang}")
-        merger = import_module(f"errant.cs.merger")
-        classifier = import_module(f"errant.cs.classifier")
-    elif lang == "de":
-        merger = import_module(f"errant.de.merger")
-        classifier = import_module(f"errant.de.classifier")
-    elif lang == "en":
-        merger = import_module(f"errant.en.merger")
-        classifier = import_module(f"errant.en.classifier")
+    #if lang == "en":
+    merger = import_module(f"errant.en.merger")
+    classifier = import_module(f"errant.en.classifier")
     
     # The classifier needs spacy
     classifier.nlp = nlp
