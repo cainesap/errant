@@ -118,12 +118,12 @@ def get_edit_info(toks):
     pos = []
     dep = []
     for tok in toks:
-        if len(tok.tag_) > 0:  # AC 2024-10-21: new if statement to account for empty pos-tags with UDPipe
+        if len(tok.tag_)>0:  # AC 2024-10-21: new if statement to account for empty pos-tags with UDPipe
             pos.append(pos_map[tok.tag_])
             dep.append(tok.dep_)
         else:
-            pos.append(pos_map[tok.tag_])
-            dep.append(tok.dep_)
+            pos.append("X")
+            dep.append("dep")
     return pos, dep
 
 # Input: Spacy tokens
