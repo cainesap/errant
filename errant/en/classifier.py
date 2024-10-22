@@ -46,7 +46,8 @@ stemmer = LancasterStemmer()
 # GB English word list (inc -ise and -ize)
 spell = load_word_list(base_dir/"resources"/"en_GB-large.txt")
 # Part of speech map file
-pos_map = load_pos_map(base_dir/"resources"/"en-ptb_map")
+#pos_map = load_pos_map(base_dir/"resources"/"en-ptb_map")
+pos_map = load_pos_map(base_dir/"resources"/"ud-pos-tags")
 # Open class coarse Spacy POS tags 
 open_pos1 = {POS.ADJ, POS.ADV, POS.NOUN, POS.VERB}
 # Open class coarse Spacy POS tags (strings)
