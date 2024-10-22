@@ -17,7 +17,7 @@ def load(lang, nlp=None):
     #elif lang == "de":
         #spacy_small = "de_core_news_sm"
 
-    # Load spacy (small model if no model supplied)
+    # Load appropriate spacy-udpipe model for given language
     if nlp:
         nlp = nlp
     else:
@@ -26,15 +26,12 @@ def load(lang, nlp=None):
         print(f"Ok, using the UDPipe model in {lang} for spacy-udpipe")
         nlp = spacy_udpipe.load(lang)
     
-    # Load language edit merger and edit classifier
-    if lang == "en":
-        merger = import_module(f"errant.en.merger")
-        classifier = import_module(f"errant.en.classifier")
-    elif lang == "cs":
-        merger = import_module(f"errant.cs.merger")
-        classifier = import_module(f"errant.cs.classifier")
+    # Load language edit merger and edit classifier (use the English one for all)
+    #if lang == "en":
+    merger = import_module(f"errant.en.merger")
+    classifier = import_module(f"errant.en.classifier")
     
-    # The classifier needs spacy
+    # The classifier needs spacy-udpipe
     classifier.nlp = nlp
 
     # Return a configured ERRANT annotator
