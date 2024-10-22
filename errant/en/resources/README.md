@@ -16,3 +16,8 @@ It was obtained [here](https://sourceforge.net/projects/wordlist/files/speller/2
 
 The specific file bundled with this release is: wordlist-en_GB-large-2020.12.07.zip.
 
+## ud-pos-tags
+
+Equivalance table of Universal Dependencies part-of-speech tags. Simply to ensure that the ERRANT commands still run (as they depend on a pos-tag mapping file).
+
+**For the MultiGEC-2025 shared task we are using spacy-udpipe and therefore UD pos-tags throughout, for all languages (i.e. all languages point to this directory, including the wordlist.**
