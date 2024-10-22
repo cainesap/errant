@@ -8,19 +8,12 @@ For the [Shared task on Multilingual Grammatical Error Correction](https://githu
 
 (b) we have downloaded the relevant [spacy-udpipe](https://spacy.io/universe/project/spacy-udpipe) models, 
 
-(c) there is an appropriate subdirectory structure for each language within the `errant/` directory.
+(c) also add the language to the possible options for the 'lang' argvar in `parallel_to_m2.py`
 
-(d) also add the language to the possible options for the 'lang' argvar in `parallel_to_m2.py`
+Note that all languages use the `en/classifier.py` and `en/merger.py` scripts for the time being. Some edits were made:
 
-This involves:
-
-(i) creating a subdirectory with the appropriate 2-letter language code (e.g. 'cs' for Czech, 'de' for German, etc),
-
-(ii) copying the `en/__init.py` file and `en/merger.py` script to the new language subdirectory, 
-
-(iii) copying the `en/classifier.py` script to the new subdirectory and changing the filepaths for the wordlist (`load_word_list()`) and part-of-speech tag mapping file (`load_pos_map()`) -- see next point -- also specifying `encoding='utf-8'` in `open()` to deal with Unicode characters, 
-
-(iv) copying the `ud-pos-tags` Universal Dependencies part-of-speech tagset file and `en_GB-large.txt` wordlist (e.g. see the 'cs' Czech directory) -- the tagset mapping file and wordlist are required by ERRANT; the fact it is an English wordlist for other languages is not ideal but will do for now (it is used for error typing (specifically spelling errors) -- which we're not using ERRANT for this time).
+- Updates to the `en/classifier.py` script to cope with empty pos-tags or dependencies; update the path when loading the `pos_map` so that it points to `ud-pos-tags`, and specify `encoding='utf-8'` in `open()` to deal with Unicode characters;
+- note the `ud-pos-tags` Universal Dependencies part-of-speech tagset file and `en_GB-large.txt` wordlist (e.g. see the 'cs' Czech directory) -- the tagset mapping file and wordlist are required by ERRANT; the fact it is an English wordlist for other languages is not ideal but will do for now (it is used for error typing (specifically spelling errors) -- which we're not using ERRANT for this time).
 
 _Note to self_: remember to `pip uninstall errant`, `git pull` the new contents of this repo, and `pip install -e .` to re-install with updates (in the spacy3 conda env).
 
