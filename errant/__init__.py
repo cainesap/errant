@@ -20,6 +20,8 @@ def load(lang, nlp=None):
     # Load appropriate spacy-udpipe model for given language
     if nlp:
         nlp = nlp
+    elif lang=="is":
+        print("Will use UDPipe2 API for Icelandic texts")
     else:
         #print(f"Ok, using the spaCy model {spacy_small} for {lang}")
         #spacy.load(spacy_small, disable=["ner"])
