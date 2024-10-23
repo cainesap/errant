@@ -21,8 +21,8 @@ def main():
             cors = line[1:]
             # Skip the line if orig is empty
             if not orig: continue
-            # Parse orig with spacy
-            orig = annotator.parse(orig, args.tok)
+            # Parse orig with spacy, AC added language 2024-10-23
+            orig = annotator.parse(orig, args.tok, args.lang)
             # Write orig to the output m2 file
             out_m2.write(" ".join(["S"]+[token.text for token in orig])+"\n")
             # Loop through the corrected texts
@@ -33,8 +33,8 @@ def main():
                     out_m2.write(noop_edit(cor_id)+"\n")
                 # Otherwise, do extra processing
                 else:
-                    # Parse cor with spacy
-                    cor = annotator.parse(cor, args.tok)
+                    # Parse cor with spacy, AC added language 2024-10-23
+                    cor = annotator.parse(cor, args.tok, args.lang)
                     # Align the texts and extract and classify the edits
                     edits = annotator.annotate(orig, cor, args.lev, args.merge)
                     # Loop through the edits

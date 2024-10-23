@@ -2,6 +2,13 @@ from errant.alignment import Alignment
 from errant.edit import Edit
 from spacy.tokens import Doc
 
+# to deal with Icelandic in MultiGEC-2025, AC 2024-10-23
+import os
+from spacy_conll import init_parser
+from spacy_conll.parser import ConllParser
+ice_parse = 'cat ice_in.txt | python udpipe2_client_original.py --model is --outfile ice_out.txt --input horizontal --parser "" --tagger "" --tokenizer "" '
+drop_last_line = "head -n -1 ice_out.txt  > ice_trimmed.txt"
+
 # Main ERRANT Annotator class
 class Annotator:
 
@@ -17,13 +24,23 @@ class Annotator:
 
     # Input 1: A text string
     # Input 2: A flag for word tokenisation
+    # Input 3: language, added by AC 2024-10-23
     # Output: The input string parsed by spacy
-    def parse(self, text, tokenise=False):
+    def parse(self, text, tokenise=False, lang):
         # Create Doc object from pretokenised text
-        if not tokenise:
+        if not tokenise and lang is not "is":
             text = Doc(self.nlp.vocab, text.split())
         # POS tag and parse
-        text = self.nlp(text)
+        if lang=="is":  # 2024-10-23: AC added if clause for Icelandic for MultiGEC-2025 (it's not in udpipe1 but udpipe2 via API)
+            f = open('ice_in.txt', 'w')  # write
+            f.write(text)
+            f.close()
+            os.system(ice_parse)
+            os.system(drop_last_line)
+            nlp = ConllParser(init_parser("en_core_web_sm", "spacy"))
+            text = nlp.parse_conll_file_as_spacy("ice_trimmed.txt")
+        else:
+            text = self.nlp(text)
         return text
 
     # Input 1: An original text string parsed by spacy
