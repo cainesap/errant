@@ -29,7 +29,7 @@ class Annotator:
     # Output: The input string parsed by spacy
     def parse(self, text, tokenise=False, lang='en'):
         # Create Doc object from pretokenised text
-        if not tokenise and lang is not "is":
+        if not tokenise and lang!="is":
             text = Doc(self.nlp.vocab, text.split())
         # POS tag and parse
         if lang=="is":  # 2024-10-23: AC added if clause for Icelandic for MultiGEC-2025 (it's not in udpipe1 but udpipe2 via API)
