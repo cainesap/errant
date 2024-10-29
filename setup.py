@@ -20,7 +20,7 @@ setup(
     url = "https://github.com/chrisjbryant/errant",    
     keywords = ["automatic annotation", "grammatical errors", "natural language processing"],
     python_requires = ">= 3.7",
-    install_requires = ["spacy>=3.2.0,<4", "rapidfuzz>=3.4.0"],
+    install_requires = ["spacy>=3.2.0,<4", "rapidfuzz>=3.4.0", "numpy==1.22"],  # AC: added numpy version to address problem with installing scipy 1.8.1 and numba 0.55.2
     packages = find_packages(),    
     include_package_data=True,
     entry_points = {
