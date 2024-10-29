@@ -49,7 +49,7 @@ def parse_args():
     parser=argparse.ArgumentParser(
         description="Align parallel text files and extract and classify the edits.\n",
         formatter_class=argparse.RawTextHelpFormatter,
-        usage="%(prog)s [-h] [options] -orig ORIG -cor COR [COR ...] -out OUT - lang LANG")
+        usage="%(prog)s [-h] [options] -orig ORIG -cor COR [COR ...] -out OUT -lang LANG")
     parser.add_argument(
         "-orig",
         help="The path to the original text file.",
