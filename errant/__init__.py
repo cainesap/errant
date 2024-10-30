@@ -29,7 +29,8 @@ def load(lang, nlp=None):
         #print(f"Ok, using the spaCy model {spacy_small} for {lang}")
         #spacy.load(spacy_small, disable=["ner"])
         print(f"Ok, using the UDPipe model in {lang} for spacy-udpipe")
-        nlp = spacy_udpipe.load(lang)
+        #nlp = spacy_udpipe.load(lang)
+        nlp = spacy_udpipe.load_from_path(lang, './')
     
     # Load language edit merger and edit classifier (use the English one for all)
     #if lang == "en":
