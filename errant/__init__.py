@@ -24,13 +24,13 @@ def load(lang, nlp=None):
         #print("Will use UDPipe2 API for Icelandic texts")
         print("Icelandic is not in spacy-udpipe so will have to use the Norwegian (Nynorsk) model")
         lang = "nn"
-        nlp = spacy_udpipe.load_from_path(lang, path="./")
+        nlp = spacy_udpipe.load_from_path(lang)
     else:
         #print(f"Ok, using the spaCy model {spacy_small} for {lang}")
         #spacy.load(spacy_small, disable=["ner"])
         print(f"Ok, using the UDPipe model in {lang} for spacy-udpipe")
         #nlp = spacy_udpipe.load(lang)
-        nlp = spacy_udpipe.load_from_path(lang, path="./")
+        nlp = spacy_udpipe.load_from_path(lang)
     
     # Load language edit merger and edit classifier (use the English one for all)
     #if lang == "en":
