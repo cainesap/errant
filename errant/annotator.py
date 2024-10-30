@@ -3,12 +3,12 @@ from errant.edit import Edit
 from spacy.tokens import Doc
 
 # to deal with Icelandic in MultiGEC-2025, AC 2024-10-23
-import os
-from spacy_conll import init_parser
-from spacy_conll.parser import ConllParser
-ice_parse = 'cat ice_in.txt | python udpipe2_client_original.py --model is --outfile ice_out.txt --input horizontal --parser "" --tagger "" --tokenizer "" '
-drop_last_line = "head -n -1 ice_out.txt  > ice_trimmed.txt"
-tidy_up = "rm ice_*.txt"
+#import os
+#from spacy_conll import init_parser
+#from spacy_conll.parser import ConllParser
+#ice_parse = 'cat ice_in.txt | python udpipe2_client_original.py --model is --outfile ice_out.txt --input horizontal --parser "" --tagger "" --tokenizer "" '
+#drop_last_line = "head -n -1 ice_out.txt  > ice_trimmed.txt"
+#tidy_up = "rm ice_*.txt"
 
 # Main ERRANT Annotator class
 class Annotator:
