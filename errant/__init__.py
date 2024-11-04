@@ -22,8 +22,10 @@ def load(lang, nlp=None):
         nlp = nlp
     elif lang=="is":
         #print("Will use UDPipe2 API for Icelandic texts")
-        print("Icelandic is not in spacy-udpipe so will have to use the Norwegian (Nynorsk) model")
-        lang = "nn"
+        #print("Icelandic is not in spacy-udpipe so will have to use the Norwegian (Nynorsk) model")
+        #lang = "nn"
+        print("Icelandic is not in spacy-udpipe so will have to use the Norwegian (Bokmaal) model")
+        lang = "nb"
         #nlp = spacy_udpipe.load_from_path(lang, '.')
         nlp = spacy_udpipe.load_from_path(lang, 'spacy_udpipe_models')  # specific for shinyapps deployment
     else:

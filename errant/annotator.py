@@ -33,7 +33,7 @@ class Annotator:
             text = Doc(self.nlp.vocab, text.split())
         # POS tag and parse
         if lang=="is":  # 2024-10-23: AC added if clause for Icelandic for MultiGEC-2025 (it's not in udpipe1 but udpipe2 via API)
-            lang="nn"
+            lang="nb"
             text = self.nlp(text)
             #print("Parsing Icelandic data with UDPipe2...")  # wanted to parse with icelandic model but problems with multiword tokens not being supported by spacy-conll (which imports the output file)
             #f = open('ice_in.txt', 'w')  # write
