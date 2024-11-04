@@ -3,12 +3,13 @@ from errant.edit import Edit
 from spacy.tokens import Doc
 
 # to deal with Icelandic in MultiGEC-2025, AC 2024-10-23
-#import os
-#from spacy_conll import init_parser
-#from spacy_conll.parser import ConllParser
-#ice_parse = 'cat ice_in.txt | python udpipe2_client_original.py --model is --outfile ice_out.txt --input horizontal --parser "" --tagger "" --tokenizer "" '
-#drop_last_line = "head -n -1 ice_out.txt  > ice_trimmed.txt"
-#tidy_up = "rm ice_*.txt"
+import os
+from spacy_conll import init_parser
+from spacy_conll.parser import ConllParser
+ice_parse = 'cat ice_in.txt | python udpipe2_client_original.py --model is --outfile ice_out.txt --input horizontal --parser "" --tagger "" --tokenizer "" '
+drop_last_line = "head -n -1 ice_out.txt  > ice_trimmed.txt"
+tidy_up = "rm ice_*.txt"
+import cleanconll
 
 # Main ERRANT Annotator class
 class Annotator:
@@ -33,17 +34,19 @@ class Annotator:
             text = Doc(self.nlp.vocab, text.split())
         # POS tag and parse
         if lang=="is":  # 2024-10-23: AC added if clause for Icelandic for MultiGEC-2025 (it's not in udpipe1 but udpipe2 via API)
-            lang="nb"
-            text = self.nlp(text)
-            #print("Parsing Icelandic data with UDPipe2...")  # wanted to parse with icelandic model but problems with multiword tokens not being supported by spacy-conll (which imports the output file)
-            #f = open('ice_in.txt', 'w')  # write
-            #f.write(text)
-            #f.close()
-            #os.system(ice_parse)
-            #os.system(drop_last_line)
-            #nlp = ConllParser(init_parser("en_core_web_sm", "spacy"))
-            #text = nlp.parse_conll_file_as_spacy("ice_trimmed.txt")
-            #os.system(tidy_up)
+            #lang="nb"
+            #lang="nn"
+            #text = self.nlp(text)
+            print("Parsing Icelandic data with UDPipe2...")  # wanted to parse with icelandic model but problems with multiword tokens not being supported by spacy-conll (which imports the output file)
+            f = open('ice_in.txt', 'w')  # write
+            f.write(text)
+            f.close()
+            os.system(ice_parse)
+            os.system(drop_last_line)
+            cleanconll.rm_multiwords("ice_trimmed.txt")
+            nlp = ConllParser(init_parser("en_core_web_sm", "spacy"))
+            text = nlp.parse_conll_file_as_spacy("ice_trimmed.txt")
+            os.system(tidy_up)
         else:
             text = self.nlp(text)
         return text
