@@ -84,7 +84,7 @@ def parse_args():
     parser.add_argument(
         "-tok", 
         help="Word tokenise the text using spacy (default: False).",
-        choices=[True, False],
+        action=argparse.BooleanOptionalAction,
         default=False)
     parser.add_argument(
         "-lev",
