@@ -7,9 +7,9 @@ import os
 from spacy_conll import init_parser
 from spacy_conll.parser import ConllParser
 ice_parse = 'cat ice_in.txt | python udpipe2_client_original.py --model is --outfile ice_out.txt --input horizontal --parser "" --tagger "" --tokenizer "" '
-drop_last_line = "head -n -1 ice_out.txt  > ice_trimmed.txt"
+drop_last_line = "sed '$ d' ice_out.txt  > ice_trimmed.txt"
 tidy_up = "rm ice_*.txt"
-import errant.cleanconll
+import errant.cleanconll as cleanconll
 
 # Main ERRANT Annotator class
 class Annotator:
