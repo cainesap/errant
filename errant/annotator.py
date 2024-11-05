@@ -2,6 +2,26 @@ from errant.alignment import Alignment
 from errant.edit import Edit
 from spacy.tokens import Doc
 
+# basic whitespace tokenizer from https://spacy.io/usage/linguistic-features#custom-tokenizer-example
+class WhitespaceTokenizer:
+    def __init__(self, vocab):
+        self.vocab = vocab
+    def __call__(self, text):
+        words = text.split(" ")
+        spaces = [True] * len(words)
+        # Avoid zero-length tokens
+        for i, word in enumerate(words):
+            if word == "":
+                words[i] = " "
+                spaces[i] = False
+        # Remove the final trailing space
+        if words[-1] == " ":
+            words = words[0:-1]
+            spaces = spaces[0:-1]
+        else:
+           spaces[-1] = False
+        return Doc(self.vocab, words=words, spaces=spaces)
+
 # to deal with Icelandic in MultiGEC-2025, AC 2024-10-23
 import os
 from spacy_conll import init_parser
@@ -27,14 +47,14 @@ class Annotator:
     # Input 1: A text string
     # Input 2: A flag for word tokenisation
     # Input 3: language, added by AC 2024-10-23
-    # Output: The input string parsed by spacy
+    # Output: The input string parsed by spacy_udpipe
     #def parse(self, text, tokenise=True, lang='en'):
     def parse(self, text, tokenise=True, lang='en'):  # AC 2024-11-05 making the default for tokenise True rather than False
-        # Create Doc object from pretokenised text
-        if not tokenise and lang!="is":
+        # if tokenise=False: Create Doc object from pretokenised text
+        if not tokenise:
             text = Doc(self.nlp.vocab, text.split())
-        # POS tag and parse
-        if lang=="is":  # 2024-10-23: AC added if clause for Icelandic for MultiGEC-2025 (it's not in udpipe1 but udpipe2 via API)
+        # else if Icelandic: use UDPipe 2 (not in udpipe 1), note that UDP2 does not tokenise
+        elif lang=="is":  # 2024-10-23: AC added if clause for Icelandic for MultiGEC-2025 (it's not in udpipe1 but udpipe2 via API)
             #lang="nb"
             #lang="nn"
             #text = self.nlp(text)
@@ -48,7 +68,10 @@ class Annotator:
             nlp = ConllParser(init_parser("en_core_web_sm", "spacy"))
             text = nlp.parse_conll_file_as_spacy("ice_trimmed.txt")
             os.system(tidy_up)
-        else:
+        elif lang=="ru":  # russian is pre-tokenised, use the whitespace tokenizer class from above
+            self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
+            text = self.nlp(text)
+        else:  # else tokenize, tag and parse
             text = self.nlp(text)
         return text
 
