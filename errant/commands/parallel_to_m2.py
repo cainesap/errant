@@ -83,9 +83,8 @@ def parse_args():
         default="en")
     parser.add_argument(
         "-tok", 
-        help="Word tokenise the text using spacy (default: False).",
-        action=argparse.BooleanOptionalAction,
-        default=False)
+        help="Word tokenise the text using spacy (default: True).",  # AC 2024-11-05 making the default True rather than False (i.e. do tokenise)
+        action="store_true")
     parser.add_argument(
         "-lev",
         help="Align using standard Levenshtein (default: False).",
