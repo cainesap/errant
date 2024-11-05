@@ -29,7 +29,7 @@ class Annotator:
     # Input 3: language, added by AC 2024-10-23
     # Output: The input string parsed by spacy
     #def parse(self, text, tokenise=True, lang='en'):
-    def parse(self, text, tokenise=True, lang='en':)  # AC 2024-11-05 making the default for tokenise True rather than False
+    def parse(self, text, tokenise=True, lang='en'):  # AC 2024-11-05 making the default for tokenise True rather than False
         # Create Doc object from pretokenised text
         if not tokenise and lang!="is":
             text = Doc(self.nlp.vocab, text.split())
