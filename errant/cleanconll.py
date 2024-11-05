@@ -4,6 +4,8 @@ import os, sys
 #if not os.path.isfile('scripts/ud-conversion-tools/conllu_to_conll.py'):
 #    os.system('cd scripts && git clone https://github.com/bplank/ud-conversion-tools.git && cd ../')
 
+# 152-153 kynjaupplýsingar        _       _       _       _       _       _       _       _
+
 def rm_multiwords(path):
     new_data = []
     for line in open(path, errors='ignore'):
@@ -14,7 +16,11 @@ def rm_multiwords(path):
             tok = line.split('\t')
             if len(tok) == 10:
                 tok[8] = '_'
-            new_data.append('\t'.join(tok))
+            # AC 2024/11/05: added this if/else statement to properly exclude MWEs
+            if "-" in tok[0]:
+                continue  # do not retain multiword tokens like the one in the example above
+            else:
+                new_data.append('\t'.join(tok))
     outFile = open(path, 'w')
     for line in new_data:
         outFile.write(line + '\n')
