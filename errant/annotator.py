@@ -72,7 +72,7 @@ class Annotator:
             self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
             text = self.nlp(text)
         else:  # else tokenize, tag and parse
-            self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
+            #self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
             text = self.nlp(text)
         return text
 
