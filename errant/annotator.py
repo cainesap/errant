@@ -22,6 +22,10 @@ class WhitespaceTokenizer:
            spaces[-1] = False
         return Doc(self.vocab, words=words, spaces=spaces)
 
+# first use syntok for tokenisation because it deals with punctuation better than whitespace tokenisation
+from syntok.tokenizer import Tokenizer
+tok = Tokenizer()
+
 # to deal with Icelandic in MultiGEC-2025, AC 2024-10-23
 import os
 from spacy_conll import init_parser
@@ -59,8 +63,9 @@ class Annotator:
             #lang="nn"
             #text = self.nlp(text)
             print("Parsing Icelandic data with UDPipe2...")  # wanted to parse with icelandic model but problems with multiword tokens not being supported by spacy-conll (which imports the output file)
+            text_tok = tok(text)
             f = open('ice_in.txt', 'w')  # write
-            f.write(text)
+            f.write(text_tok)
             f.close()
             os.system(ice_parse)
             os.system(drop_last_line)
@@ -68,12 +73,13 @@ class Annotator:
             nlp = ConllParser(init_parser("en_core_web_sm", "spacy"))
             text = nlp.parse_conll_file_as_spacy("ice_trimmed.txt")
             os.system(tidy_up)
-        elif lang=="ru":  # russian is pre-tokenised, use the whitespace tokenizer class from above
+        #elif lang=="ru":  # russian is pre-tokenised, use the whitespace tokenizer class from above
+            #self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
+            #text = self.nlp(text)
+        else:  # else pre-tokenize with syntok, split on whitespace, tag and parse
+            text_tok = tok(text)
             self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
-            text = self.nlp(text)
-        else:  # else tokenize, tag and parse
-            self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
-            text = self.nlp(text)
+            text = self.nlp(text_tok)
         return text
 
     # Input 1: An original text string parsed by spacy
