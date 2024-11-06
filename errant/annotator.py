@@ -26,8 +26,7 @@ class WhitespaceTokenizer:
 from syntok.tokenizer import Tokenizer
 def pretokenize(txt):
     tok = Tokenizer()
-    tok_text = tok.tokenize(txt)
-    return ' '.join([str(token).strip() for token in tok.tokenize(txt1)])
+    return ' '.join([str(token).strip() for token in tok.tokenize(txt)])
 
 # to deal with Icelandic in MultiGEC-2025, AC 2024-10-23
 import os
