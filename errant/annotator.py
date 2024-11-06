@@ -24,7 +24,10 @@ class WhitespaceTokenizer:
 
 # first use syntok for tokenisation because it deals with punctuation better than whitespace tokenisation
 from syntok.tokenizer import Tokenizer
-tok = Tokenizer()
+def pretokenize(txt):
+    tok = Tokenizer()
+    tok_text = tok.tokenize(txt)
+    return ' '.join([str(token).strip() for token in tok.tokenize(txt1)])
 
 # to deal with Icelandic in MultiGEC-2025, AC 2024-10-23
 import os
@@ -63,7 +66,7 @@ class Annotator:
             #lang="nn"
             #text = self.nlp(text)
             print("Parsing Icelandic data with UDPipe2...")  # wanted to parse with icelandic model but problems with multiword tokens not being supported by spacy-conll (which imports the output file)
-            text_tok = tok.tokenize(text)
+            text_tok = pretokenize(text)
             f = open('ice_in.txt', 'w')  # write
             f.write(text_tok)
             f.close()
@@ -77,7 +80,7 @@ class Annotator:
             #self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
             #text = self.nlp(text)
         else:  # else pre-tokenize with syntok, split on whitespace, tag and parse
-            text_tok = tok.tokenize(text)
+            text_tok = pretokenize(text)
             self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
             text = self.nlp(text_tok)
         return text
