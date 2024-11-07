@@ -65,7 +65,7 @@ class Annotator:
             #lang="nn"
             #text = self.nlp(text)
             print("Parsing Icelandic data with UDPipe2...")  # wanted to parse with icelandic model but problems with multiword tokens not being supported by spacy-conll (which imports the output file)
-            text_tok = pretokenize(text)
+            #text_tok = pretokenize(text)
             f = open('ice_in.txt', 'w')  # write
             f.write(text_tok)
             f.close()
@@ -79,7 +79,7 @@ class Annotator:
             #self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
             #text = self.nlp(text)
         else:  # else pre-tokenize with syntok, split on whitespace, tag and parse
-            text_tok = pretokenize(text)
+            #text_tok = pretokenize(text)
             self.nlp.tokenizer = WhitespaceTokenizer(self.nlp.vocab)
             text = self.nlp(text_tok)
         return text
