@@ -73,7 +73,7 @@ class Annotator:
             os.system(ice_parse)
             os.system(drop_last_line)
             cleanconll.rm_multiwords("ice_trimmed.txt")
-            nlp = ConllParser(init_parser("en_core_web_sm", "spacy"))
+            nlp = ConllParser(init_parser("en_core_web_sm", "spacy", "spacy_models"))
             text = nlp.parse_conll_file_as_spacy("ice_trimmed.txt")
             os.system(tidy_up)
         #elif lang=="ru":  # russian is pre-tokenised, use the whitespace tokenizer class from above
